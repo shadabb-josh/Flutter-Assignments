@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:assignments/assignment_5/user_modal.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 
@@ -10,7 +11,7 @@ class UserFetcher extends StatefulWidget {
 }
 
 class _UserFetcherState extends State<UserFetcher> {
-  List<dynamic> _users = [];
+  List<User> _users = [];
   bool _isLoading = false;
   String? _error;
 
@@ -32,8 +33,9 @@ class _UserFetcherState extends State<UserFetcher> {
       );
 
       if (response.statusCode == 200) {
+        final List<dynamic> data = jsonDecode(response.body);
         setState(() {
-          _users = jsonDecode(response.body);
+          _users = data.map((user) => User.fromJson(user)).toList();
           _isLoading = false;
         });
       } else {
@@ -63,9 +65,9 @@ class _UserFetcherState extends State<UserFetcher> {
               itemBuilder: (context, index) {
                 final user = _users[index];
                 return ListTile(
-                  leading: CircleAvatar(child: Text(user['name'][0])),
-                  title: Text(user['name']),
-                  subtitle: Text(user['email']),
+                  leading: CircleAvatar(child: Text(user.name[0])),
+                  title: Text(user.name),
+                  subtitle: Text(user.email),
                 );
               },
             ),
