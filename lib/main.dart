@@ -1,4 +1,6 @@
+import 'package:assignments/assignment_4/todo_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'assignment_1/profile_card.dart';
 import 'assignment_2/navigation.dart';
 import 'assignment_3/login_form.dart';
@@ -48,7 +50,10 @@ class HomeScreen extends StatelessWidget {
       },
       {
         'title': 'Todo List',
-        'widget': const TodoList(),
+        'widget': ChangeNotifierProvider(
+          create: (_) => TodoProvider(),
+          child: const TodoList(),
+        ),
       },
       {
         'title': 'User Fetcher',
