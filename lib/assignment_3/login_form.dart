@@ -1,3 +1,4 @@
+import 'package:assignments/assignment_3/utils/validators.dart';
 import 'package:flutter/material.dart';
 
 class LoginForm extends StatefulWidget{
@@ -34,24 +35,14 @@ class _LoginFormState extends State<LoginForm> {
                 controller: _emailController,
                 decoration: const InputDecoration(labelText: 'Email'),
                 keyboardType: TextInputType.emailAddress,
-                validator: (value) {
-                  if (value == null || value.isEmpty || !value.contains('@')){
-                    return 'Enter a valid Email';
-                  }
-                  return null;
-                }
+                validator: validateEmail
               ),
               const SizedBox(height: 16),
               TextFormField(
                 controller: _passwordController,
                 decoration: const InputDecoration(labelText: 'Password'),
                 obscureText: true,
-                validator: (value) {
-                  if (value == null || value.length < 6){
-                    return 'Password must be atleast 6 characters';
-                  }
-                  return null;
-                },
+                validator: validatePassword,
               ),
               const SizedBox(height: 20),
               ElevatedButton(onPressed: _submit, child: const Text('Login'))
